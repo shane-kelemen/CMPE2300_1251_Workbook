@@ -37,15 +37,13 @@ namespace IntroToProperties
 
 			set
 			{
-				if (value.GetBrightness() < 0.5)
+				if (value.GetBrightness() < 0.7)
 					_colour = value;
 				else
 					throw new ArgumentException
 					("The brightness of a car must be less than 0.5");
 			}
 		}
-
-
 
 		public Car(string VIN, string make, string model, Color colour)
 		{
@@ -56,9 +54,27 @@ namespace IntroToProperties
 			Colour = colour;
 		}
 
+		public Car(string make, Color colour) : this("SDSKFJDLSKJFGHJ", make, "slkdfh", colour)
+		{
+			
+		}
+
 		public Car() : this("KJHSFAH1H987245LK", "Koenigsegg", "One", Color.SteelBlue)
 		{
 
+		}
+
+		public override bool Equals(object? obj)
+		{
+			if (!(obj is Car other)) return false;
+
+			return _MAKE.Equals(other._MAKE) 
+						&& _colour.Equals(other._colour);
+		}
+
+		public override int GetHashCode()
+		{
+			return 1;
 		}
 	}
 }

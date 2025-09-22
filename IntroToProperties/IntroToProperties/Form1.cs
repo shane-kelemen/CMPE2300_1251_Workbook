@@ -2,6 +2,7 @@ namespace IntroToProperties
 {
     public partial class Form1 : Form
     {
+        static Random rng = new Random();
         Car _car;
 
         public Form1()
@@ -12,6 +13,26 @@ namespace IntroToProperties
 			_btnCreateCar.Click += _btnCreateCar_Click;
             Color c = Color.Yellow;
             System.Diagnostics.Trace.WriteLine(c.GetBrightness());
+
+           
+            List<Car> cars = new List<Car>();
+            string[] makes = { "Dodge", "Chrysler", "Jeep"};
+            Color[] known = { Color.Red, Color.Blue, Color.Green };
+            for (int i = 0; i < 100; ++i)
+            {
+                cars.Add(new Car(makes[rng.Next(3)], known[rng.Next(3)]));
+            }
+
+            Car equalityCompare = new Car("Jeep", Color.Blue);
+            int count = 0;
+            foreach (Car car in cars)
+            {
+                if (car.Equals(equalityCompare))
+                    ++count;
+            }
+
+            Text = $"There were {count} Blue Jeeps in the cars List";
+
         }
 
 		private void _btnCreateCar_Click(object? sender, EventArgs e)
@@ -34,6 +55,8 @@ namespace IntroToProperties
             {
                 _lblStatus.Text = ex.Message;
             }
+
+
 		}
 
 		private void _txbColour_Click(object? sender, EventArgs e)
