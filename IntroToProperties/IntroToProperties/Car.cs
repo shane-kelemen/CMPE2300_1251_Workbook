@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IntroToProperties
 {
-	internal class Car
+	internal class Car : IComparable
 	{
 		readonly string _VIN;
 		readonly string _MAKE;
@@ -75,6 +75,35 @@ namespace IntroToProperties
 		public override int GetHashCode()
 		{
 			return 1;
+		}
+
+		public int CompareTo(object obj)
+		{
+			if (!(obj is Car other))
+				throw new Exception("An incoreect type was provided!");
+						
+			return VIN.CompareTo(other.VIN);
+		}
+
+		public static int CompareByModelDescending (Car left, Car right)
+		{
+			if (left == null && right == null) return 0;
+			if (left == null) return 1;
+			if (right == null) return -1;
+		
+			//return left.MODEL.CompareTo(right.MODEL) * -1;
+			return right.MODEL.CompareTo(left.MODEL);
+		}
+
+		public static int CompareVINWithinMake(Car left, Car right)
+		{
+			if (left == null && right == null) return 0;
+			if (left == null) return -1;
+			if (right == null) return 1;
+
+			int firstOrder =  left._MAKE.CompareTo(right._MAKE);
+
+			return firstOrder == 0 ? left.CompareTo(right) : firstOrder;
 		}
 	}
 }

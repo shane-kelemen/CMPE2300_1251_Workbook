@@ -33,6 +33,7 @@ namespace IntroToProperties
 
             Text = $"There were {count} Blue Jeeps in the cars List";
 
+            cars.Sort((left, right) => left.CompareTo(right));
         }
 
 		private void _btnCreateCar_Click(object? sender, EventArgs e)
